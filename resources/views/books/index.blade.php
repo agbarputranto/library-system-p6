@@ -16,6 +16,7 @@
                 <th>Title</th>
                 <th>Author</th>
                 <th>Publication Year</th>
+                <th>Stock</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -25,19 +26,21 @@
             @foreach($books as $book)
 
                 <tr>
-                    <td>{{ $book['id'] }}</td>
+                    <td>{{ $book->id }}</td>
 
                     <td>
-                        <strong>{{ $book['title'] }}</strong>
+                        <strong>{{ $book->title }}</strong>
                     </td>
 
-                    <td>{{ $book['author'] }}</td>
+                    <td>{{ $book->author }}</td>
 
-                    <td>{{ $book['year'] }}</td>
+                    <td>{{ $book->year }}</td>
+
+                    <td>{{ $book->stock }}</td>
 
                     <td>
                         <a
-                            href="/books/{{ $book['id'] }}"
+                            href="/books/{{ $book->id }}"
                             class="button"
                         >
                             View Detail
