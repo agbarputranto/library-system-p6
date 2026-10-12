@@ -8,8 +8,21 @@
         Explore our collection of books.
     </p>
 
-    <table>
+    {{-- Success message --}}
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
+    {{-- Add Book button --}}
+    <p>
+        <a href="{{ route('books.create') }}" class="button">
+            Add Book
+        </a>
+    </p>
+
+    <table>
         <thead>
             <tr>
                 <th>ID</th>
@@ -22,9 +35,7 @@
         </thead>
 
         <tbody>
-
-            @foreach($books as $book)
-
+            @forelse ($books as $book)
                 <tr>
                     <td>{{ $book->id }}</td>
 
@@ -40,18 +51,42 @@
 
                     <td>
                         <a
-                            href="/books/{{ $book->id }}"
+                            href="{{ route('books.show', $book) }}"
                             class="button"
                         >
                             View Detail
                         </a>
+
+                        <a
+                            href="{{ route('books.edit', $book) }}"
+                            class="button"
+                        >
+                            Edit
+                        </a>
+
+                        <form
+                            action="{{ route('books.destroy', $book) }}"
+                            method="POST"
+                            style="display: inline;"
+                            onsubmit="return confirm('Are you sure you want to delete this book?')"
+                        >
+                            @csrf
+                            @method('DELETE')
+
+                            <button type="submit" class="button">
+                                Delete
+                            </button>
+                        </form>
                     </td>
                 </tr>
-
-            @endforeach
-
+            @empty
+                <tr>
+                    <td colspan="6">
+                        No books available.
+                    </td>
+                </tr>
+            @endforelse
         </tbody>
-
     </table>
 
 @endsection

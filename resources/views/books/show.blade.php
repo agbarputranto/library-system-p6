@@ -10,22 +10,42 @@
             Information about the selected book.
         </p>
 
-        <h2>Book ID</h2>
+        <table>
+            <tbody>
+                <tr>
+                    <th>ID</th>
+                    <td>{{ $book->id }}</td>
+                </tr>
 
-        <p style="font-size: 32px; font-weight: bold;">
-            {{ $id }}
-        </p>
+                <tr>
+                    <th>Title</th>
+                    <td>{{ $book->title }}</td>
+                </tr>
 
-        @if($id)
+                <tr>
+                    <th>Author</th>
+                    <td>{{ $book->author }}</td>
+                </tr>
 
-            <p>
-                You are viewing the detail page for book
-                with ID {{ $id }}.
-            </p>
+                <tr>
+                    <th>Publication Year</th>
+                    <td>{{ $book->year }}</td>
+                </tr>
 
-        @endif
+                <tr>
+                    <th>Stock</th>
+                    <td>{{ $book->stock }}</td>
+                </tr>
+            </tbody>
+        </table>
 
-        <a href="/books" class="button">
+        <br>
+
+        <a href="{{ route('books.edit', $book) }}" class="button">
+            Edit Book
+        </a>
+
+        <a href="{{ route('books.index') }}" class="button">
             Back to Books
         </a>
 
