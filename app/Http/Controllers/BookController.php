@@ -22,21 +22,21 @@ class BookController extends Controller
     }
 
     // Menyimpan buku baru
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'author' => 'required|string|max:255',
-            'year' => 'required|integer|min:1|max:9999',
-            'stock' => 'required|integer|min:0',
-        ]);
+   public function store(Request $request)
+{
+    $validated = $request->validate([
+        'title' => 'required|string|max:255',
+        'author' => 'required|string|max:255',
+        'year' => 'required|integer|min:1900|max:2026',
+        'stock' => 'required|integer|min:0',
+    ]);
 
-        Book::create($validated);
+    Book::create($validated);
 
-        return redirect()
-            ->route('books.index')
-            ->with('success', 'Buku berhasil ditambahkan.');
-    }
+    return redirect()
+        ->route('books.index')
+        ->with('success', 'Buku berhasil ditambahkan.');
+}
 
     // Menampilkan detail buku
     public function show(Book $book)
@@ -56,7 +56,7 @@ class BookController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'author' => 'required|string|max:255',
-            'year' => 'required|integer|min:1|max:9999',
+            'year' => 'required|integer|min:1900|max:2026',
             'stock' => 'required|integer|min:0',
         ]);
 
