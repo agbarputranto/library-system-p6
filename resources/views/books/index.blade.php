@@ -30,6 +30,7 @@
                 <th>Author</th>
                 <th>Publication Year</th>
                 <th>Stock</th>
+                <th>Category</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -48,6 +49,8 @@
                     <td>{{ $book->year }}</td>
 
                     <td>{{ $book->stock }}</td>
+
+                    <td>{{ $book->category?->name ?? 'Belum ada kategori' }}</td>
 
                     <td>
                         <a
@@ -81,7 +84,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="6">
+                    <td colspan="7">
                         No books available.
                     </td>
                 </tr>
