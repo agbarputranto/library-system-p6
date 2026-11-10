@@ -6,15 +6,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\AuthController;
-
-Route::get('/dashboard', [DashboardController::class, 'index']);
-
-Route::resource('books', BookController::class);
-
-Route::get('/categories', [CategoryController::class, 'index']);
-
-Route::get('/members', [MemberController::class, 'index']);
-
+use App\Http\Controllers\UserController;
 
 // Route untuk pengguna yang belum login
 Route::middleware('guest')->group(function () {
@@ -25,12 +17,30 @@ Route::middleware('guest')->group(function () {
         ->name('login.submit');
 });
 
-// Route logout hanya dapat diakses oleh pengguna yang sudah login
-Route::post('/logout', [AuthController::class, 'logout'])
-    ->middleware('auth')
-    ->name('logout');
-
-// Route buku hanya dapat diakses oleh pengguna yang sudah login
+// Route yang hanya dapat diakses setelah login
 Route::middleware('auth')->group(function () {
+
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
+
+    // Book Management
     Route::resource('books', BookController::class);
+
+    // Category Management
+    Route::get('/categories', [CategoryController::class, 'index'])
+        ->name('categories.index');
+
+    // Member Management
+    Route::get('/members', [MemberController::class, 'index'])
+        ->name('members.index');
+
+    // Logout
+    Route::post('/logout', [AuthController::class, 'logout'])
+        ->name('logout');
+});
+
+// Route khusus Admin untuk mengelola pengguna
+Route::middleware(['auth', 'can:manage-users'])->group(function () {
+    Route::resource('users', UserController::class);
 });

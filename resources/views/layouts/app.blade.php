@@ -190,6 +190,10 @@
                 <a href="/books">Books</a>
                 <a href="/categories">Categories</a>
                 <a href="/members">Members</a>
+
+                @can('manage-users')
+                    <a href="{{ route('users.index') }}">Manage Users</a>
+                @endcan
             </nav>
 
         </div>

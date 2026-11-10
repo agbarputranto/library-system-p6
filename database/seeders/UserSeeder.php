@@ -2,19 +2,30 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {
     public function run(): void
     {
+        // Akun Admin
         User::updateOrCreate(
             ['email' => 'akbar@gmail.com'],
             [
                 'name' => 'Akbar',
-                'password' => Hash::make('Akbar789'),
+                'password' => 'Akbar789',
+                'role' => 'admin',
+            ]
+        );
+
+        // Akun Petugas
+        User::updateOrCreate(
+            ['email' => 'petugas@gmail.com'],
+            [
+                'name' => 'Petugas Perpustakaan',
+                'password' => 'Petugas789',
+                'role' => 'petugas',
             ]
         );
     }
